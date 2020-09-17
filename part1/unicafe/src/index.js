@@ -5,14 +5,19 @@ const Button = ({name, handleClick}) => (
   <button onClick={handleClick}>{name}</button>
 )
 
-const Clicks = ({name, clicks}) => (
-  <p>{name} {clicks}</p>
-)
-
-const Stats = ({allClicks, name}) => {
-  const {good, neutral, bad} = allClicks;
+const StatsContent = ({feedback, name}) => {
+  const {good, neutral, bad} = feedback;
   const total = good + neutral + bad;
   const statsCalc = {
+    good() {
+      return good;
+    },
+    neutral() {
+      return neutral;
+    },
+    bad() {
+      return bad;
+    },
     all() {
       return total;
     },
@@ -25,6 +30,19 @@ const Stats = ({allClicks, name}) => {
   }
   return (
     <p>{name} {statsCalc[name]()}</p>
+  )
+}
+
+const Statistics = ({feedback}) => {
+  return (
+    <>
+      <StatsContent feedback={feedback} name={'good'} /> 
+      <StatsContent feedback={feedback} name={'neutral'} /> 
+      <StatsContent feedback={feedback} name={'bad'} /> 
+      <StatsContent feedback={feedback} name={'all'} /> 
+      <StatsContent feedback={feedback} name={'average'} /> 
+      <StatsContent feedback={feedback} name={'positive'} /> 
+    </>
   )
 }
 
@@ -45,12 +63,7 @@ const App = () => {
       <Button name={'neutral'} handleClick={saveClick(setNeutral)} />
       <Button name={'bad'} handleClick={saveClick(setBad)} />
       <h1>statistics</h1>
-      <Clicks name={'good'} clicks={good} />
-      <Clicks name={'neutral'} clicks={neutral} />
-      <Clicks name={'bad'} clicks={bad} />
-      <Stats allClicks={allClicks} name={'all'} />
-      <Stats allClicks={allClicks} name={'average'} />
-      <Stats allClicks={allClicks} name={'positive'} />
+      <Statistics feedback={allClicks} />
     </div>
   )
 }
