@@ -36,12 +36,18 @@ const StatsContent = ({feedback, name}) => {
 const Statistics = ({feedback}) => {
   return (
     <>
-      <StatsContent feedback={feedback} name={'good'} /> 
-      <StatsContent feedback={feedback} name={'neutral'} /> 
-      <StatsContent feedback={feedback} name={'bad'} /> 
-      <StatsContent feedback={feedback} name={'all'} /> 
-      <StatsContent feedback={feedback} name={'average'} /> 
-      <StatsContent feedback={feedback} name={'positive'} /> 
+      <h1>statistics</h1>
+      {
+        Object.values(feedback).some(value => value !== 0) &&
+          <section>
+            <StatsContent feedback={feedback} name={'good'} />
+            <StatsContent feedback={feedback} name={'neutral'} />
+            <StatsContent feedback={feedback} name={'bad'} />
+            <StatsContent feedback={feedback} name={'all'} />
+            <StatsContent feedback={feedback} name={'average'} />
+            <StatsContent feedback={feedback} name={'positive'} /> 
+          </section>
+      }
     </>
   )
 }
@@ -62,7 +68,6 @@ const App = () => {
       <Button name={'good'} handleClick={saveClick(setGood)} />
       <Button name={'neutral'} handleClick={saveClick(setNeutral)} />
       <Button name={'bad'} handleClick={saveClick(setBad)} />
-      <h1>statistics</h1>
       <Statistics feedback={allClicks} />
     </div>
   )
