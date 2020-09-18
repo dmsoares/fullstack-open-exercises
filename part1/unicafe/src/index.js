@@ -5,8 +5,8 @@ const Button = ({name, handleClick}) => (
   <button onClick={handleClick}>{name}</button>
 )
 
-const StatsContent = ({feedback, name}) => {
-  const {good, neutral, bad} = feedback;
+const Statistic = ({sample, name}) => {
+  const {good, neutral, bad} = sample;
   const total = good + neutral + bad;
   const statsCalc = {
     good() {
@@ -29,7 +29,10 @@ const StatsContent = ({feedback, name}) => {
     }
   }
   return (
-    <p>{name} {statsCalc[name]()}</p>
+    <tr>
+      <td>{name}</td>
+      <td>{statsCalc[name]()}</td>
+    </tr>
   )
 }
 
@@ -39,14 +42,16 @@ const Statistics = ({feedback}) => {
       <h1>statistics</h1>
       {
         Object.values(feedback).some(value => value !== 0) &&
-          <section>
-            <StatsContent feedback={feedback} name={'good'} />
-            <StatsContent feedback={feedback} name={'neutral'} />
-            <StatsContent feedback={feedback} name={'bad'} />
-            <StatsContent feedback={feedback} name={'all'} />
-            <StatsContent feedback={feedback} name={'average'} />
-            <StatsContent feedback={feedback} name={'positive'} /> 
-          </section>
+          <table>
+            <tbody>
+              <Statistic sample={feedback} name={'good'} />
+              <Statistic sample={feedback} name={'neutral'} />
+              <Statistic sample={feedback} name={'bad'} />
+              <Statistic sample={feedback} name={'all'} />
+              <Statistic sample={feedback} name={'average'} />
+              <Statistic sample={feedback} name={'positive'} /> 
+            </tbody>
+          </table>
       }
     </>
   )
