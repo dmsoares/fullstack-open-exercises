@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
 
 const App = () => {
   const [ persons, setPersons ] = useState([
@@ -9,17 +12,20 @@ const App = () => {
   ]) 
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
-  const [filteredPersons, setFilteredPersons] = useState(persons);
+  const [filter, setFilter] = useState('');
+
+  const applyFilter = (newFilter) => {
+    setFilter(newFilter);
+  }
   
-  const applyFilter = (event) => {
-    const {value} = event.target;
-    const filter = new RegExp(`${value}`, 'ig');
-    const filtered = persons.filter(person => person.name.search(filter) !== -1);
-    setFilteredPersons(filtered);
+  const selectPersons = () => {
+    const re = new RegExp(filter, 'ig');
+    return persons.filter(person => person.name.search(re) !== -1);
   }
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
+
     if (persons.some(person => person.name === newName)) {
       alert(`${newName} is already added to phonebook`);
       return
@@ -27,28 +33,23 @@ const App = () => {
     setPersons([...persons, { name: newName, number: newNumber }]);
     setNewName('');
     setNewNumber('');
+
+    document.querySelector('#name-input').focus();
   }
 
   return (
     <div>
       <h2>Phonebook</h2>
-        <div>
-          filter shown with <input onChange={applyFilter} />
-        </div>
+      <Filter applyFilter={applyFilter} filter={filter} />
       <h2>add a new</h2>
-      <form onSubmit={handleOnSubmit}>
-        <div>
-          name: <input onChange={(event) => setNewName(event.target.value)} value={newName} autoFocus/>
-        </div>
-        <div>
-          number: <input onChange={(event) => setNewNumber(event.target.value)} value={newNumber} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <PersonForm
+        handleOnSubmit={handleOnSubmit}
+        handleName={setNewName}
+        handleNumber={setNewNumber}
+        name={newName}
+        number={newNumber} />
       <h2>Numbers</h2>
-      {filteredPersons.map(person => <p key={person.name}>{person.name} {person.number}</p>)}
+      <Persons selectPersons={selectPersons} />
     </div>
   )
 }
