@@ -14,10 +14,6 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('');
   const [filter, setFilter] = useState('');
 
-  const applyFilter = (newFilter) => {
-    setFilter(newFilter);
-  }
-  
   const selectPersons = () => {
     const re = new RegExp(filter, 'ig');
     return persons.filter(person => person.name.search(re) !== -1);
@@ -40,7 +36,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Filter applyFilter={applyFilter} filter={filter} />
+      <Filter applyFilter={setFilter} filter={filter} />
       <h2>add a new</h2>
       <PersonForm
         handleOnSubmit={handleOnSubmit}
