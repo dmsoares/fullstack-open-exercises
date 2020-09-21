@@ -4,10 +4,14 @@ const App = () => {
   const [ persons, setPersons ] = useState([
     { name: 'Arto Hellas' }
   ]) 
-  const [ newName, setNewName ] = useState('')
+  const [newName, setNewName] = useState('')
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
+    if (persons.some(person => person.name === newName)) {
+      alert(`${newName} is already added to phonebook`);
+      return
+    }
     setPersons([...persons, { name: newName }]);
     setNewName('');
   }
@@ -17,7 +21,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <form onSubmit={handleOnSubmit}>
         <div>
-          name: <input onChange={(event) => setNewName(event.target.value)} value={newName} />
+          name: <input onChange={(event) => setNewName(event.target.value)} value={newName} autoFocus/>
         </div>
         <div>
           <button type="submit">add</button>
