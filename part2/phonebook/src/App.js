@@ -19,8 +19,7 @@ const App = () => {
   }, [])
 
   const selectPersons = () => {
-    const re = new RegExp(filter, 'ig');
-    return persons.filter(person => person.name.search(re) !== -1);
+    return persons.filter(person => person.name.toLowerCase().indexOf(filter) !== -1); 
   }
 
   const handleOnSubmit = (event) => {

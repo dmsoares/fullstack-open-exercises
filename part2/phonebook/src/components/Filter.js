@@ -2,7 +2,7 @@ import React from 'react'
 
 const Filter = ({applyFilter, filter}) => {
     const handleChange = (event) => {
-        applyFilter(event.target.value.replace(/[^a-z0-9\W]/gi, ''));
+        applyFilter(event.target.value.toLowerCase());
     }
     return (
     <div>
