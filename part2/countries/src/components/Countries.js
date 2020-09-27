@@ -8,8 +8,7 @@ const Countries = ({countries, searchString}) => {
         setMatches(
             countries
                 .filter(country => {
-                    const re = new RegExp(searchString, 'gi')
-                    return country.name.search(re) !== -1;})
+                    return country.name.toLowerCase().indexOf(searchString) !== -1})
                 .map(country => ({...country, show: false}))
         )
     }, [countries, searchString])
