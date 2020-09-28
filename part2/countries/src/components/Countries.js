@@ -13,9 +13,9 @@ const Countries = ({countries, searchString}) => {
     }, [countries, searchString])
 
     const handleClick = (name) => {
-        setMatches(prev => {
-            return prev.map(country => country.name === name ? {...country, show: !country.show} : country)
-        })
+        setMatches(prev => 
+            prev.map(country => country.name === name ? {...country, show: !country.show} : country)
+        )
     }
 
     const total = matches.length;
@@ -24,7 +24,7 @@ const Countries = ({countries, searchString}) => {
     if (total === 1) return <Country match={matches[0]} />
     if (total <= 10) return matches.map(country => (
         <div key={country.numericCode} className={'hideShowCountry'}>
-            <label>{country.name} <button onClick={() => handleClick(country.name)}>show</button></label>
+            <label>{country.name} <button onClick={() => handleClick(country.name)}>{country.show ? 'hide' : 'show'}</button></label>
             {country.show && <Country match={country} />}
         </div>
         )
