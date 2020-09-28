@@ -23,8 +23,19 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault();
 
-    if (persons.some(person => person.name === newName)) {
-      alert(`${newName} is already added to phonebook`);
+    const newPerson = persons.find(person => person.name === newName)
+    const question = `${newName} is already added to phonebook, replace the old number with a new one?`
+
+    if (newPerson) {
+      if (window.confirm(question)) {
+        personService
+          .update(newPerson.id, { ...newPerson, number: newNumber })
+          .then(response => {
+            setPersons(persons.map(person => person.id === newPerson.id ? response : person))
+            setNewName('')
+            setNewNumber('')
+          })
+      } 
       return
     }
 
@@ -48,6 +59,7 @@ const App = () => {
         .then(response => {
           setPersons(persons.filter(person => person.id !== id))
         })
+        .catch(error => console.log(error))
     }
   }
 
