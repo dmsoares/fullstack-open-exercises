@@ -5,7 +5,7 @@ import Persons from './components/Persons'
 import personService from './services/persons'
 
 const App = () => {
-  const [ persons, setPersons ] = useState([]) 
+  const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filter, setFilter] = useState('');
@@ -40,6 +40,14 @@ const App = () => {
     document.querySelector('#name-input').focus();
   }
 
+  const removePerson = id => {
+    personService
+      .remove(id)
+      .then(response => {
+        setPersons(persons.filter(person => person.id !== id))
+      })
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -52,7 +60,7 @@ const App = () => {
         name={newName}
         number={newNumber} />
       <h2>Numbers</h2>
-      <Persons selectPersons={selectPersons} />
+      <Persons selectPersons={selectPersons} removePerson={removePerson} />
     </div>
   )
 }

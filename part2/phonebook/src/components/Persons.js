@@ -1,9 +1,13 @@
 import React from 'react';
 
-const Persons = ({ selectPersons }) => {
+const Persons = ({ selectPersons, removePerson }) => {
+
     return selectPersons()
         .map(person =>
-            <p key={person.name}>{person.name} {person.number}</p>
+            <div key={person.name}>
+                <label>{person.name} {person.number} </label>
+                <button onClick={() => removePerson(person.id)}>delete</button>
+            </div>
             );
 }
 
