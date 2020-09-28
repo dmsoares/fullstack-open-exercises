@@ -5,7 +5,6 @@ const api_key = process.env.REACT_APP_API_KEY
 
 const Country = ({match}) => {
     const [weather, setWeather] = useState()
-    const api_key = '81fa97d074b327564b4e2aec66db9c58'
     useEffect(() => {
         axios
             .get(`http://api.openweathermap.org/data/2.5/weather?q=London&appid=${api_key}`)

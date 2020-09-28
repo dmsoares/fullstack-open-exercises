@@ -7,8 +7,7 @@ const Countries = ({countries, searchString}) => {
     useEffect(() => {
         setMatches(
             countries
-                .filter(country => {
-                    return country.name.toLowerCase().indexOf(searchString) !== -1})
+                .filter(country => country.name.toLowerCase().indexOf(searchString) !== -1)
                 .map(country => ({...country, show: false}))
         )
     }, [countries, searchString])
