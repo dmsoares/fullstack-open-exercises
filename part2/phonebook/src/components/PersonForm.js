@@ -7,7 +7,7 @@ const PersonForm = ({handleOnSubmit, handleName, handleNumber, name, number}) =>
           name: <input id='name-input' onChange={(event) => handleName(event.target.value)} value={name} autoFocus/>
         </div>
         <div>
-          number: <input onChange={(event) => handleNumber(event.target.value)} value={number} />
+          number: <input onChange={(event) => !/[^\d\-\s]|\s\s+|--+|^-|^\s|\s-+|-\s+/g.test(event.target.value) && handleNumber(event.target.value)} value={number} />
         </div>
         <div>
           <button type="submit">add</button>

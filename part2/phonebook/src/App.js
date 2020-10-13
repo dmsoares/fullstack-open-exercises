@@ -73,7 +73,7 @@ const App = () => {
         })
         .catch(err => {
           setPersons(persons.filter(person => person.id !== id))
-          sendNotification({ text: `Information of ${newName} had already been removed from server`, type: 'error' })
+          sendNotification({ text: `Information of ${name} had already been removed from server`, type: 'error' })
         })
     }
   }
